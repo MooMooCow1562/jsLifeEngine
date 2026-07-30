@@ -1,4 +1,4 @@
-/**
+/*
 	Open source JS based engine for cellular life, written with notepad++
     Copyright (C) 2026  Austin Charles Hunt
 
@@ -15,17 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-
-let Dismiss = document.getElementById("Dismiss")
-let Liscense = document.getElementById("Liscense")
-Dismiss.addEventListener("click", hideDisclaimer)
-Liscense.addEventListener("click", showLiscense)
-
-function hideDisclaimer(){
-	document.getElementById("Disclaimer").style.display = "none"
-	document.getElementById("Content").style.display = "block"
-}
-
-function showLiscense(){
-	window.open("LICENSE")
-}
+#Content {display: none;}
+#Controls {display:none;}
+#Board {image-rendering: pixelated;}
