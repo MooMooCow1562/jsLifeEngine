@@ -359,7 +359,7 @@ function loopStep(){
 }
 
 document.getElementById("Random").addEventListener("click", ()=>{randomizeBoard(); drawBoard()})
-document.getElementById("Start").addEventListener("click", ()=>{saveGrid(); times = -1; loopStep()})
+document.getElementById("Start").addEventListener("click", ()=>{times = -1; loopStep()})
 document.getElementById("Stop").addEventListener("click", ()=>{clearInterval(loop), drawBoard()})
 document.getElementById("Reset").addEventListener("click", ()=>{grid = createGrid(); drawBoard()})
 document.getElementById("Save").addEventListener("click", ()=>saveGrid())
