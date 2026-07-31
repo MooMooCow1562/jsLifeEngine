@@ -285,7 +285,7 @@ async function loadCustom(){
 	try{
 		load(ruleset)
 	}catch(err){
-		alert("Something in your JSON was not valid!" + "\n" + err.text)
+		alert("Something in your JSON was not valid!" + "\n" + err.cause + "\n"+ err.text)
 	}
 }
 
@@ -348,6 +348,10 @@ function randomizeBoard(){
 let loop
 let times // future stuff.
 
+/**
+	runs loop step on, you guessed it, a loop using timeout.
+	automatically adjusts it's execution speed based on how the browser is handling it.
+*/
 function loopStep(){
     let time = performance.now()
 	if (times>0){
@@ -355,11 +359,55 @@ function loopStep(){
 	}
 	step()
 	drawBoard()
-	//should be a safe amount for any browser to run the thing.
+	//adjustment go brr.
 	time = Math.ceil((performance.now() - time) * 2)
 	if(times != 0){
 		loop = setTimeout(loopStep, time)
 	}
+}
+
+let currentExport
+let exportURL
+
+/**
+	Creates the file export to allow people to take their board states with them.
+*/
+function createExport(){
+	currentExport = new File(['{"grid":'+JSON.stringify(grid) + '}'], "exported_board_" + Date.now() + ".json", {type: "application/json"})
+	exportURL = URL.createObjectURL(currentExport)
+	document.getElementById("BSDownload").setAttribute("href", exportURL)
+	console.log(exportURL)
+	document.getElementById("BSDownload").innerHTML = "<i>Download Board State (Something's here now!)</i>"
+}
+
+/**
+	imports a board state. Attempts to handle common(?) errors.
+*/
+async function importBoard(){
+	let iBoard
+	let iBoardInput = document.getElementById("Import");
+	if('files' in iBoardInput && iBoardInput.files[0].type == "application/json"){
+		iBoard = await iBoardInput.files[0].text()
+	}else{
+		alert("Import was not a JSON file!")
+		return
+	}
+	try{
+		let iGridJSON = JSON.parse(iBoard)["grid"]
+		if(iGridJSON.length != grid.length){
+			throw new Error("Grid is not the correct size!\nSize Expected: " + grid.length + "\nSize gotten:" + iGridJSON.length)
+		}else if(Math.min(iGridJSON) < 0){
+			throw new Error("Negative cell values are unsupported!\nMinimum value in import grid was: " + Math.min(iGridJSON))
+		}else if(Math.max(iGridJSON) >= cellNames.length){
+			throw new Error("Grid contains too many cell types for this automata!\nExpected: "+cellNames.length+" cell types\nHighest cell Value was: " + Math.max(iGridJSON))
+		}
+		grid = iGridJSON
+	}catch(err){
+		alert("Something in your saved state was not valid!" + "\n" + err.cause + "\n" + err.text)
+		return
+	}
+	drawBoard()
+	alert("Successful import!")
 }
 
 //event listener attatchments.
@@ -372,3 +420,5 @@ document.getElementById("Save").addEventListener("click", ()=>saveGrid())
 document.getElementById("Load").addEventListener("click", ()=>{loadGrid(); drawBoard()})
 document.getElementById("Sort").addEventListener("click", ()=>{grid.sort(), drawBoard()})
 document.getElementById("Step").addEventListener("click", ()=>{step(); drawBoard()})
+document.getElementById("Export").addEventListener("click", createExport)
+document.getElementById("Import").addEventListener("change", importBoard)

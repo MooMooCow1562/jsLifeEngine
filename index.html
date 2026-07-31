@@ -62,18 +62,26 @@
 				<button type="button" id="Step" title="Steps the simulation 1 generation forward.">Step</button>
 				<button type="button" id="Start" title="Starts the simulation">Start</button>
 				<button type="button" id="Stop" title="Ends the current simulation without destroying content in the canvas.">Stop</button>
-				<button type="button" id="Save" title="Saves the current board state for loading later.">Save</button>
-				<button type="button" id="Load" title="Rewinds to the last saved board state.">Load</button>
+				<button type="button" id="Random" title="Randomizes the board state.">Randomize</button>
+				<button type="button" id="Sort" title="Sorts the board... why would you want this?">Sort</button>
 			</div>
 			<div>
-				<button type="button" id="Random" title="Randomizes the board state.">Randomize</button>
+				<button type="button" id="Save" title="Saves the current board state for loading later.">Save</button>
+				<button type="button" id="Load" title="Rewinds to the last saved board state.">Load</button>
 				<button type="button" id="Reset" title="Resets the board state to the first cell type.">Reset</button>
-				<button type="button" id="Sort" title="Sorts the board... why would you want this?">Sort</button>
+			</div>
+			<div>
+				<label for="Import">Import JSON board state here: </label>
+				<input type="file" id="Import" name="Import">
+				<button type="button" id="Export" title="Generates an export of a board state and attatches it to the Download Board State button.">Export</button>
+			</div>
+			<div>
+				<a href="" download type="application/json" id="BSDownload">Download Board State <i>(nothing here yet!)</i></a>
 			</div>
 		</div>
 		<div id="Loaders">
 			<label for="JInput">Input Json Ruleset here</label>
-			<input type="file" id="JInput" name="json input">
+			<input type="file" id="JInput" name="JInput">
 			<button type="button" id="loadDefault">Or load the defaults.</button>
 		</div>
 		<script src="lifeEngine.js"></script>

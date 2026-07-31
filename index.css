@@ -22,6 +22,7 @@
 }
 body {
 	background-color: #ddbb88;
+	font-size: 1.25em;
 }
 div{
 	width: 100%;
@@ -36,13 +37,14 @@ div{
 	display: none;	
 	flex-direction: column;
 }
-button, input {
+button, input, label {
 	color: black;
 	background-color:#88ddbb;
 	padding-left: 1.25%;
 	padding-right: 1.25%;
 	padding-top: 0.75%;
 	padding-bottom: 0.75%;
+	text-transform: uppercase;
 }
 #Reset {background-color: #EEAAAA;}
 #Disclaimer {display: block;}
