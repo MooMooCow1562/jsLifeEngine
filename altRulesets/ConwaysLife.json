@@ -1,6 +1,6 @@
 {
 	"automataName" : "Conway's game of life",
-	"boardDimensions" : [171, 111],
+	"boardDimensions" : [111, 171],
 	"cellSize" : 5,
 	"cellNames" : ["dead", "alive"],
 	"cellColors": ["#333333","#CCCCCC", "#676767"],
