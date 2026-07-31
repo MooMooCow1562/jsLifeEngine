@@ -23,7 +23,6 @@ Liscense.addEventListener("click", showLiscense)
 
 function hideDisclaimer(){
 	document.getElementById("Disclaimer").style.display = "none"
-	document.getElementById("Content").style.display = "block"
 }
 
 function showLiscense(){

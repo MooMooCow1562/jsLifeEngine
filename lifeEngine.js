@@ -89,7 +89,8 @@ let kernelDimensions
 */
 function hideLoaders(){
 	document.getElementById("Loaders").style.display = "none"
-	document.getElementById("Controls").style.display = "block"
+	document.getElementById("Controls").style.display = "flex"
+	document.getElementById("Board").style.display = "flex"
 }
 
 /**

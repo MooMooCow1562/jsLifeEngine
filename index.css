@@ -15,6 +15,34 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-#Content {display: none;}
-#Controls {display:none;}
-#Board {image-rendering: pixelated;}
+#Board {
+	image-rendering: pixelated;
+	margin: auto;
+	display: none;
+}
+body {
+	background-color: #ddbb88;
+}
+div{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#Content{
+	flex-direction: column;
+}
+#Controls{
+	display: none;	
+	flex-direction: column;
+}
+button, input {
+	color: black;
+	background-color:#88ddbb;
+	padding-left: 1.25%;
+	padding-right: 1.25%;
+	padding-top: 0.75%;
+	padding-bottom: 0.75%;
+}
+#Reset {background-color: #EEAAAA;}
+#Disclaimer {display: block;}
