@@ -334,6 +334,9 @@ function step(){
 	swapGrids();
 }
 
+/**
+	uses JavaScript's random to generate a random board of all cell types. JavaScript's Math.random should be roughly uniform and I've seen that. I might want to make my own random function sometime in the future that I can seed for testing purpouses.
+*/
 function randomizeBoard(){
 	let max = cellNames.length
 	for(let i = 0; i < grid.length; i++){
@@ -352,14 +355,16 @@ function loopStep(){
 	step()
 	drawBoard()
 	//should be a safe amount for any browser to run the thing.
-	time = Math.ceil((performance.now() - time) * 10)
+	time = Math.ceil((performance.now() - time) * 2)
 	if(times != 0){
 		loop = setTimeout(loopStep, time)
 	}
 }
 
+//event listener attatchments.
+//could maybe extract some of these into their own functions?
 document.getElementById("Random").addEventListener("click", ()=>{randomizeBoard(); drawBoard()})
-document.getElementById("Start").addEventListener("click", ()=>{times = -1; loopStep()})
+document.getElementById("Start").addEventListener("click", ()=>{clearInterval(loop); times = -1; loopStep()})
 document.getElementById("Stop").addEventListener("click", ()=>{clearInterval(loop), drawBoard()})
 document.getElementById("Reset").addEventListener("click", ()=>{grid = createGrid(); drawBoard()})
 document.getElementById("Save").addEventListener("click", ()=>saveGrid())
