@@ -142,7 +142,7 @@ function getAnyCell(x, y, grid, f_width){
 		y = the y location of the cell
 		value = the value to set the cell to, 0 by default.
 */
-function setAnyCell(x, y, value = 0){
+function setCell(x, y, value = 0){
 	grid[y * width + x] = value;
 }
 
@@ -213,6 +213,7 @@ function drawBoard(){
 		}
 	}
 	board.drawImage(osCanvas,0,0)
+	drawHighlight()
 }
 
 /**
@@ -414,11 +415,98 @@ async function importBoard(){
 //could maybe extract some of these into their own functions?
 document.getElementById("Random").addEventListener("click", ()=>{randomizeBoard(); drawBoard()})
 document.getElementById("Start").addEventListener("click", ()=>{clearInterval(loop); times = -1; loopStep()})
-document.getElementById("Stop").addEventListener("click", ()=>{clearInterval(loop), drawBoard()})
+document.getElementById("Stop").addEventListener("click", ()=>{clearInterval(loop); drawBoard()})
 document.getElementById("Reset").addEventListener("click", ()=>{grid = createGrid(); drawBoard()})
 document.getElementById("Save").addEventListener("click", ()=>saveGrid())
 document.getElementById("Load").addEventListener("click", ()=>{loadGrid(); drawBoard()})
-document.getElementById("Sort").addEventListener("click", ()=>{grid.sort(), drawBoard()})
+document.getElementById("Sort").addEventListener("click", ()=>{grid.sort(); drawBoard()})
 document.getElementById("Step").addEventListener("click", ()=>{step(); drawBoard()})
 document.getElementById("Export").addEventListener("click", createExport)
 document.getElementById("Import").addEventListener("change", importBoard)
+
+const canvas = document.getElementById("Board")
+
+let mouseX
+let mouseY
+let shouldDrawHighlight = false;
+/**
+	records a position to draw a highlight at.
+	params:
+		e = mousemove event.
+*/
+function recordMousePos(e){
+	mouseX = Math.floor(e.offsetX / cellSize)
+	mouseY = Math.floor(e.offsetY / cellSize)
+	shouldDrawHighlight = true
+}
+
+/**
+	Draws a highlight of the current cell being hovered over on the board.
+*/
+function drawHighlight(){
+	if(!shouldDrawHighlight){
+		return
+	}
+	let ctx = canvas.getContext("2d")
+	ctx.strokeStyle = cellColors[(getCell(mouseX,mouseY)+1) % cellColors.length]
+	ctx.lineWidth = Math.ceil(cellSize / 4);
+	ctx.strokeRect(0, mouseY*cellSize, canvas.width, cellSize)
+	ctx.strokeRect(mouseX*cellSize, 0, cellSize, canvas.height)
+	ctx.strokeRect(mouseX*cellSize, mouseY*cellSize, cellSize, cellSize)
+}
+
+function toggleCell(){
+	setCell(mouseX, mouseY, (getCell(mouseX, mouseY) + 1)%cellNames.length)
+	drawBoard()
+}
+
+//draws a fresh frame after the mouse exits the board.
+canvas.addEventListener("mouseleave", ()=>{shouldDrawHighlight = false; drawBoard()})
+//highlights galore!
+canvas.addEventListener("mousemove", (e)=>{recordMousePos(e); drawBoard()})
+canvas.addEventListener("click", toggleCell)
+
+/**
+	Slices grid into rows.
+*/
+function sliceRows(){
+	let returnableArr = new Array()
+	for(i = 0; i< height; i++){
+		try{
+		returnableArr[i] = grid.slice(i*width, (i+1)*width)
+		}catch(err){
+			console.log(err)
+			break;
+		}
+	}
+	return returnableArr
+}
+/**
+	sorts contents of rows.
+*/
+function sortRowSlices(){
+	let arrToSort = sliceRows()
+	let newGrid = []
+	for(i=0; i<arrToSort.length; i++){
+		arrToSort[i].sort()
+		newGrid = newGrid.concat(arrToSort[i])
+	}
+	grid = newGrid
+	drawBoard()
+}
+
+function sortRows(){
+	let arrToSort = sliceRows()
+	arrToSort = arrToSort.sort()
+	let newGrid = []
+	for(i=0; i<arrToSort.length; i++){
+		newGrid = newGrid.concat(arrToSort[i])
+	}
+	grid = newGrid
+	drawBoard()
+}
+
+document.getElementById("RSort").addEventListener("click", sortRowSlices)
+document.getElementById("CSort").addEventListener("click", ()=>{alert("Unimplemented!")})
+document.getElementById("SortRows").addEventListener("click", sortRows)
+document.getElementById("SortCols").addEventListener("click", ()=>alert("Unimplemented!"))
