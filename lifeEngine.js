@@ -481,6 +481,18 @@ function sliceRows(){
 	}
 	return returnableArr
 }
+
+function sliceColumns(){
+	let returnableArr = new Array()
+	for(x=0; x<width; x++){
+		returnableArr[x] = new Array()
+		for(y=0; y<height; y++){
+			returnableArr[x] = returnableArr[x].concat(getCell(x,y))
+		}
+	}
+	return returnableArr
+}
+
 /**
 	sorts contents of rows.
 */
@@ -495,6 +507,25 @@ function sortRowSlices(){
 	drawBoard()
 }
 
+function sortColumnSlices(){
+	let arrToSort = sliceColumns()
+	let newGrid = []
+	for(i=0; i<arrToSort.length; i++){
+		arrToSort[i].sort()
+		newGrid[i] = arrToSort[i]
+	}
+	for(x=0; x<width; x++){
+		for(y=0; y<height; y++){
+			try{
+			setCell(x, y, newGrid[x][y])
+			}catch(err){
+				console.log(err)
+			}			
+		}
+	}
+	drawBoard()
+}
+
 function sortRows(){
 	let arrToSort = sliceRows()
 	arrToSort = arrToSort.sort()
@@ -506,7 +537,26 @@ function sortRows(){
 	drawBoard()
 }
 
+function sortColumns(){
+	let arrToSort = sliceColumns()
+	arrToSort.sort()
+	let newGrid = []
+	for(i=0; i<arrToSort.length; i++){
+		newGrid[i] = arrToSort[i]
+	}
+	for(x=0; x<width; x++){
+		for(y=0; y<height; y++){
+			try{
+			setCell(x, y, newGrid[x][y])
+			}catch(err){
+				console.log(err)
+			}			
+		}
+	}
+	drawBoard()
+}
+
 document.getElementById("RSort").addEventListener("click", sortRowSlices)
-document.getElementById("CSort").addEventListener("click", ()=>{alert("Unimplemented!")})
+document.getElementById("CSort").addEventListener("click", sortColumnSlices)
 document.getElementById("SortRows").addEventListener("click", sortRows)
-document.getElementById("SortCols").addEventListener("click", ()=>alert("Unimplemented!"))
+document.getElementById("SortCols").addEventListener("click", sortColumns)
