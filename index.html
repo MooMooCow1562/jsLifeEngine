@@ -18,6 +18,7 @@
 -->
 <head>
 <title>Life Engine</title>
+<link rel="stylesheet" href="mainTheme.css">
 <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -55,7 +56,10 @@
 			<b>I'm sorry but your browser must support JavaScript to utilize the life engine.</b>
 		</noscript>
 		<div>
-			<canvas id="Board" title="The canvas which the cellular automata is drawn on.">If you're hearing/reading this, you probably can't use this application for lack of sight.</canvas>
+			<a href="editor.html">Click here to make a cellular automata of your own!</a>
+		</div>
+		<div>
+			<canvas id="Board" title="The canvas which the cellular automata is drawn on.">If you're hearing/reading this, you probably can't use this application for lack of sight, or something has gone horribly wrong.</canvas>
 		</div>
 		<div id="Controls">
 			<div>
@@ -63,9 +67,10 @@
 				<button type="button" id="Start" title="Starts the simulation">Start</button>
 				<button type="button" id="Stop" title="Ends the current simulation without destroying content in the canvas.">Stop</button>
 				<button type="button" id="Random" title="Randomizes the board state.">Randomize</button>
+				<button type="button" id="Reverse" title="Reverses the entire board.">Reverse</button>
 			</div>
 			<div>
-				<button type="button" id="Sort" title="Sorts the board... why would you want this?">Sort</button>
+				<button type="button" id="Sort" title="Sorts the board.">Sort</button>
 				<button type="button" id="RSort" title="Sorts the board per row.">Row Sort</Button>
 				<button type="button" id="CSort" title="Sorts the board per column.">Column Sort</Button>
 				<button type="button" id="SortRows" title="Sorts the rows of the board.">Sort rows</Button>

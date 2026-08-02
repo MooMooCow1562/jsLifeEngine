@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Open source JS based engine for cellular life, written with notepad++
+	Copyright (C) 2026  Austin Charles Hunt
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <https://www.gnu.org/licenses/>.
+-->
+<head>
+<title>Life Engine</title>
+<link rel="stylesheet" href="mainTheme.css">
+</head>
+<body>
+	<h1>WORK IN PROGRESS</h1>
+	<div id="metadata">
+		<label for="name" title="The name of your cellular automata!">Automata Name:</label>
+		<input id="name" type="text" name="automataName" required minlength="2" size="26">
+		<br>
+		<label for="boardXDim" title="How many cells wide your automata should be.">Board width</label>
+		<input required type="number" id="boardXDim" name="boardDimensions" min="10">
+		<br>
+		<label for="boardYDim" title="How many cells high your automata should be.">Board height:</label>
+		<input required type="number" id="boardYDim" name="boardDimensions" min="10">
+		<br>
+		<label for="cellSize" title="How many pixels in height and width a single cell should be.">Cell Size:</label>
+		<input required type="number" id="cellSize" name="cellSize" min="5">
+		<br>
+		<b>Cell types:</b>
+		<br>
+		<div id="cellTypes">
+			<label for="typeCount" title="The number of cell types in your automata.">Type Count:</label>
+			<input required id="typeCount" name="typeCount" type="number" min="2">
+			<br>
+			<div id="cellNames">
+				Please select a number of cell types first!
+			</div>
+			<br>
+			<div id="colors">
+				Please add cell names first!
+			</div>
+		</div>
+	</div><br>
+	<div id="ruleset">
+		<b>Transformations</b>
+		<br>
+		<div id="transformations">
+			<label for="numTransformations" title="How many transformations your automata supports.">Number of Transformations:</label>
+			<input required id="numTransformations" name="numTransformations" type="number" min="1">
+			<br>
+			<div id="a->b">
+				Please select a number of transformations first!
+			</div>
+			<br>
+			<div id="nieghborsNeeded">
+				Please select a number of transformations first!
+			</div>
+			<br>
+			<div id="neigborTypesTracked">
+				Please select a number of transformations first!
+			</div>
+		</div>
+		<br>
+		<b>Kernel</b>
+		<br>
+		<div id="kernel">
+			<label for="kernelXDim" title="How many cells wide your kernel should be.">Kernel width</label>
+			<input required type="number" id="kernelXDim" name="kernelDimensions" min="2">
+			<br>
+			<label for="kernelYDim" title="How many cells high your kernel should be.">Kernel height:</label>
+			<input required type="number" id="kernelYDim" name="kernelDimensions" min="2">
+			<br>
+			<div id="grid">
+				Please specify the dimensions of the kernel first!
+			</div>
+			<br>
+			<i>What should be the focal point of the kernel?</i>
+			<br>
+			<label for="kernelXCent" title="X coordinate of the kernel's focal point.">Kernel focal X:</label>
+			<input required type="number" id="kernelXCent" name="center" min="0">
+			<br>
+			<label for="kernelYCent" title="X coordinate of the kernel's focal poin.">Kernel focal Y:</label>
+			<input required type="number" id="kernelYCent" name="center" min="0">
+		</div>
+	</div>
+	<script src=""></script>
+</body>
+</html>

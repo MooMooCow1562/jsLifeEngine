@@ -20,27 +20,10 @@ body {
 	font-size: 1.25em;
 }
 div{
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	width: 100%;
 }
-button, input, label {
-	padding-left: 1.25%;
-	padding-right: 1.25%;
-	padding-top: 0.75%;
-	padding-bottom: 0.75%;	
+button, input, label, b, i {
+	color: black;
+	background-color:#88ddbb;
+	text-transform: uppercase;
 }
-#Board {
-	image-rendering: pixelated;
-	margin: auto;
-	display: none;
-}
-#Content{
-	flex-direction: column;
-}
-#Controls{
-	display: none;	
-	flex-direction: column;
-}
-#Reset {background-color: #EEAAAA;}
-#Disclaimer {display: block;}
