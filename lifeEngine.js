@@ -318,14 +318,33 @@ function step(){
 				}
 				//otherwise
 				//count the neigbors
-				let neighbors = 0;
+				let neighArr = []
+				let sum = 0
 				//count all neighbor types we need to track.
-				neighborsTypes[tfLoc].forEach((e, i, a)=> (neighbors += countNeighbors( loc % width, Math.floor(loc / width), cellNames.findIndex((name)=>{return name == e}))))
-				//if we have the right amount of neigbors
-				if(neighborsNeeded[tfLoc].find((needed)=>{return needed == neighbors})){
-					//transform.
+				neighborsTypes[tfLoc].forEach(
+					(val, index)=> (
+						neighArr[index] = countNeighbors( loc % width, Math.floor(loc / width), 
+							cellNames.findIndex(
+								(name)=>{
+									return name == val
+								}
+							)
+						)
+					)
+				)
+				neighArr.forEach((val) => {sum+=val})
+				if(neighArr.length == 1){
+				//if we have the right amount of neigbors (single value)
+					if(neighborsNeeded[tfLoc].find((needed)=>{return needed == neighArr[0]})){
+						//transform.
+						nextCell = cellNames.findIndex((name)=>{return name == aToB[tfLoc][1]});
+						continue cellTypeLoop
+					}
+				}
+				//for multiple cell types in a search transform if no single value matches the total (i.e. not if all one cell type of multi search)
+				else if(!neighArr.find((val)=>{return val == sum})){
 					nextCell = cellNames.findIndex((name)=>{return name == aToB[tfLoc][1]});
-					continue cellTypeLoop;
+					continue cellTypeLoop			
 				}
 			}
 		}
