@@ -17,9 +17,9 @@
 				[-1]
 			],
 			"neigborTypesTracked" : [
-			["alive"],
-			["alive"],
-			["alive"]
+				["alive"],
+				["alive"],
+				["alive"]
 			]
 		},
 		"kernel" : {

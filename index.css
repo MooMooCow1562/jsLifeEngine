@@ -28,7 +28,8 @@ button, input, label {
 	padding-left: 1.25%;
 	padding-right: 1.25%;
 	padding-top: 0.75%;
-	padding-bottom: 0.75%;	
+	padding-bottom: 0.75%;
+	text-transform: uppercase;
 }
 #Board {
 	image-rendering: pixelated;

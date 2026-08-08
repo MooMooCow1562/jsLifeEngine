@@ -23,8 +23,8 @@
 <body>
 	<h1>WORK IN PROGRESS</h1>
 	<div id="metadata">
-		<label for="name" title="The name of your cellular automata!">Automata Name:</label>
-		<input id="name" type="text" name="automataName" required minlength="2" size="26">
+		<label for="name" title="The name of your cellular automata! (Between 2 and 256 characters)">Automata Name:</label>
+		<input id="name" type="text" name="automataName" required minlength="2" maxlength = "256" size="26">
 		<br>
 		<label for="boardXDim" title="How many cells wide your automata should be.">Board width</label>
 		<input required type="number" id="boardXDim" name="boardDimensions" min="10">
@@ -57,14 +57,17 @@
 			<label for="numTransformations" title="How many transformations your automata supports.">Number of Transformations:</label>
 			<input required id="numTransformations" name="numTransformations" type="number" min="1">
 			<br>
+			<i>Cell->Transformed Cell</i><br>
 			<div id="a->b">
 				Please select a number of transformations first!
 			</div>
 			<br>
+			<i>Neighbors needed</i><br>
 			<div id="nieghborsNeeded">
 				Please select a number of transformations first!
 			</div>
 			<br>
+			<i>Types tracked</i><br>
 			<div id="neigborTypesTracked">
 				Please select a number of transformations first!
 			</div>
@@ -82,7 +85,6 @@
 			<div id="grid">
 				Please specify the dimensions of the kernel first!
 			</div>
-			<br>
 			<i>What should be the focal point of the kernel?</i>
 			<br>
 			<label for="kernelXCent" title="X coordinate of the kernel's focal point.">Kernel focal X:</label>
@@ -92,6 +94,9 @@
 			<input required type="number" id="kernelYCent" name="center" min="0">
 		</div>
 	</div>
-	<script src=""></script>
+	<b id="errorMSG"></b>
+	<button type="button" id="generateFile">Generate ruleset link</button>
+	<a href="" download type="application/json" id="download">Click me to download your ruleset!</a>
+	<script src="editor.js"></script>
 </body>
 </html>

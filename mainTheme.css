@@ -25,5 +25,8 @@ div{
 button, input, label, b, i {
 	color: black;
 	background-color:#88ddbb;
-	text-transform: uppercase;
+}
+
+#errorMSG{
+	color: red;
 }
