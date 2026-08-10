@@ -332,13 +332,13 @@ function regexStr(list, parseable){
 		replySubStr = the modification to the error messages.
 */
 function validateSingleNum(elementName, replySubStr){
-	if (!(document.getElementById(elementName).value)){
+	if (Number.isNaN(document.getElementById(elementName).valueAsNumber)){
 		throw new Error("You must input a " + replySubStr)
 	}
-	if (!(Number.parseInt(document.getElementById(elementName).value))){
+	if (!Number.isInteger(document.getElementById(elementName).valueAsNumber)){
 		throw new RangeError("You must input an integer "+ replySubStr)
 	}
-	return Number.parseInt(document.getElementById(elementName).value)
+	return document.getElementById(elementName).valueAsNumber
 }
 /**
 	validates a single number.
@@ -347,17 +347,19 @@ function validateSingleNum(elementName, replySubStr){
 		replySubStr = the modification to the error messages.
 */
 function validateKernelNum(elementName, replySubStr){
-	if (!(Number.parseInt(document.getElementById(elementName).value))){
+	if (Number.isNaN(document.getElementById(elementName).valueAsNumber)){
+		throw new Error("You must input a " + replySubStr)
+	}if (!Number.isInteger(document.getElementById(elementName).valueAsNumber)){
 		throw new RangeError("You must input an integer "+ replySubStr)
 	}
-	return Number.parseInt(document.getElementById(elementName).value)
+	return document.getElementById(elementName).valueAsNumber
 }
 
 function setFocalMaxima(){
 	let focX = document.getElementById("kernelXCent")
 	let focY = document.getElementById("kernelYCent")
-	let kernWidth = document.getElementById("kernelXDim").value
-	let kernHeight = document.getElementById("kernelYDim").value
+	let kernWidth = document.getElementById("kernelXDim").valueAsNumber - 1
+	let kernHeight = document.getElementById("kernelYDim").valueAsNumber - 1
 	focX.setAttribute("max", kernWidth)
 	focY.setAttribute("max", kernHeight)
 }
