@@ -22,80 +22,54 @@
 <link rel="stylesheet" href="index.css">
 </head>
 <body>
-	<div id="Disclaimer">
-		<b>Liscense disclaimer.</b><br>
-		Open source JS based engine for cellular life, written with notepad++<br>
-		Copyright (C) 2026  Austin Charles Hunt<br>
-		<br>
-		This program is free software: you can redistribute it and/or modify
-		it under the terms of the GNU General Public License as published by
-		the Free Software Foundation, either version 3 of the License, or
-		(at your option) any later version.<br>
-		<br>
-		This program is distributed in the hope that it will be useful,
-		but WITHOUT ANY WARRANTY; without even the implied warranty of
-		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-		GNU General Public License for more details.<br>
-		<br>
-		You should have received a copy of the GNU General Public License
-		along with this program.  If not, see <a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>.<br>
-		<button type="button" id="Dismiss">
-			<i>I understand, Dismiss.</i>
-		</button>
-		<button type="button" id="Liscense">
-			<i>Show me the liscense!</i>
-		</button>
-		<script src="liscenseScript.js"></script>
-		<noscript>
-			<b>The buttons will do nothing because your browser does not support JavaScript. Have a link to the liscense instead.</b>
-			<a href="LICENSE">Show me the liscense!</a>
-		</noscript>
-	</div>
-	<div id="Content">
-		<noscript>
-			<b>I'm sorry but your browser must support JavaScript to utilize the life engine.</b>
-		</noscript>
-		<div>
-			<a href="editor.html">Click here to make a cellular automata of your own!</a>
+	<main>
+		<div id="Content">
+			<noscript>
+				<b>I'm sorry but your browser must support JavaScript to utilize the life engine.</b>
+			</noscript>
+			<div>
+				<a href="editor.html">Click here to make a cellular automata of your own!</a>
+			</div>
+			<div>
+				<canvas id="Board" title="The canvas which the cellular automata is drawn on.">If you're hearing/reading this, you probably can't use this application for lack of sight, or something has gone horribly wrong.</canvas>
+			</div>
+			<div id="Controls">
+				<div>
+					<button type="button" id="Step" title="Steps the simulation 1 generation forward.">Step</button>
+					<button type="button" id="Start" title="Starts the simulation">Start</button>
+					<button type="button" id="Stop" title="Ends the current simulation without destroying content in the canvas.">Stop</button>
+					<button type="button" id="Random" title="Randomizes the board state.">Randomize</button>
+					<button type="button" id="Reverse" title="Reverses the entire board.">Reverse</button>
+				</div>
+				<div>
+					<button type="button" id="Sort" title="Sorts the board.">Sort</button>
+					<button type="button" id="RSort" title="Sorts the board per row.">Row Sort</Button>
+					<button type="button" id="CSort" title="Sorts the board per column.">Column Sort</Button>
+					<button type="button" id="SortRows" title="Sorts the rows of the board.">Sort rows</Button>
+					<button type="button" id="SortCols" title="Sorts the columns of the board.">Column Sort</Button>
+				</div>
+				<div>
+					<button type="button" id="Save" title="Saves the current board state for loading later.">Save</button>
+					<button type="button" id="Load" title="Rewinds to the last saved board state.">Load</button>
+					<button type="button" id="Reset" title="Resets the board state to the first cell type.">Reset</button>
+				</div>
+				<div>
+					<label for="Import">Import JSON board state here: </label>
+					<input type="file" id="Import" name="Import">
+					<button type="button" id="Export" title="Generates an export of a board state and attatches it to the Download Board State button.">Export</button>
+				</div>
+				<div>
+					<a href="" download type="application/json" id="BSDownload">Download Board State <i>(nothing here yet!)</i></a>
+				</div>
+			</div>
+			<div id="Loaders">
+				<label for="JInput">Input Json Ruleset here</label>
+				<input type="file" id="JInput" name="JInput">
+				<button type="button" id="loadDefault">Or load the defaults.</button>
+			</div>
+			<script src="lifeEngine.js"></script>
 		</div>
-		<div>
-			<canvas id="Board" title="The canvas which the cellular automata is drawn on.">If you're hearing/reading this, you probably can't use this application for lack of sight, or something has gone horribly wrong.</canvas>
-		</div>
-		<div id="Controls">
-			<div>
-				<button type="button" id="Step" title="Steps the simulation 1 generation forward.">Step</button>
-				<button type="button" id="Start" title="Starts the simulation">Start</button>
-				<button type="button" id="Stop" title="Ends the current simulation without destroying content in the canvas.">Stop</button>
-				<button type="button" id="Random" title="Randomizes the board state.">Randomize</button>
-				<button type="button" id="Reverse" title="Reverses the entire board.">Reverse</button>
-			</div>
-			<div>
-				<button type="button" id="Sort" title="Sorts the board.">Sort</button>
-				<button type="button" id="RSort" title="Sorts the board per row.">Row Sort</Button>
-				<button type="button" id="CSort" title="Sorts the board per column.">Column Sort</Button>
-				<button type="button" id="SortRows" title="Sorts the rows of the board.">Sort rows</Button>
-				<button type="button" id="SortCols" title="Sorts the columns of the board.">Column Sort</Button>
-			</div>
-			<div>
-				<button type="button" id="Save" title="Saves the current board state for loading later.">Save</button>
-				<button type="button" id="Load" title="Rewinds to the last saved board state.">Load</button>
-				<button type="button" id="Reset" title="Resets the board state to the first cell type.">Reset</button>
-			</div>
-			<div>
-				<label for="Import">Import JSON board state here: </label>
-				<input type="file" id="Import" name="Import">
-				<button type="button" id="Export" title="Generates an export of a board state and attatches it to the Download Board State button.">Export</button>
-			</div>
-			<div>
-				<a href="" download type="application/json" id="BSDownload">Download Board State <i>(nothing here yet!)</i></a>
-			</div>
-		</div>
-		<div id="Loaders">
-			<label for="JInput">Input Json Ruleset here</label>
-			<input type="file" id="JInput" name="JInput">
-			<button type="button" id="loadDefault">Or load the defaults.</button>
-		</div>
-		<script src="lifeEngine.js"></script>
-	</div>
+	</main>
+	<footer>Copyright (C) 2026 Austin Charles Hunt<br>Liscense: <a href="LICENSE">GPL3</a></footer>
 </body>
 </html>
