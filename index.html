@@ -35,18 +35,20 @@
 			</div>
 			<div id="Controls">
 				<div>
+					<span>Brush types</span>
+				</div>
+				<div>
+					<label for="Bucket">Bucket fill? </label>
+					<input type="checkbox" id="Bucket" name="Bucket">
+				</div>
+				<div>
+					<span>Simulation Controls</span>
+				</div>
+				<div>
 					<button type="button" id="Step" title="Steps the simulation 1 generation forward.">Step</button>
 					<button type="button" id="Start" title="Starts the simulation">Start</button>
 					<button type="button" id="Stop" title="Ends the current simulation without destroying content in the canvas.">Stop</button>
 					<button type="button" id="Random" title="Randomizes the board state.">Randomize</button>
-					<button type="button" id="Reverse" title="Reverses the entire board.">Reverse</button>
-				</div>
-				<div>
-					<button type="button" id="Sort" title="Sorts the board.">Sort</button>
-					<button type="button" id="RSort" title="Sorts the contents of each row.">Row Sort</Button>
-					<button type="button" id="CSort" title="Sorts the contents of each column.">Column Sort</Button>
-					<button type="button" id="SortRows" title="Sorts the rows of the board.">Sort Rows</Button>
-					<button type="button" id="SortCols" title="Sorts the columns of the board.">Sort Columns</Button>
 				</div>
 				<div>
 					<button type="button" id="Save" title="Saves the current board state for loading later.">Save</button>
@@ -54,11 +56,25 @@
 					<button type="button" id="Reset" title="Resets the board state to the first cell type.">Reset</button>
 				</div>
 				<div>
-					<label for="Import">Import JSON board state here: </label>
-					<input type="file" id="Import" name="Import">
-					<button type="button" id="Export" title="Generates an export of a board state and attatches it to the Download Board State button.">Export</button>
+					<span>Sorting Controls</span>
 				</div>
 				<div>
+					<button type="button" id="Sort" title="Sorts the board like it's a single string.">String Sort</button>
+					<button type="button" id="RSort" title="Sorts the contents of each row.">Row Sort</Button>
+					<button type="button" id="CSort" title="Sorts the contents of each column.">Column Sort</Button>
+					<button type="button" id="SortRows" title="Sorts the rows of the board.">Sort Rows</Button>
+					<button type="button" id="SortCols" title="Sorts the columns of the board.">Sort Columns</Button>
+					<button type="button" id="Reverse" title="Reverses the entire board.">Reverse</button>
+				</div>
+				<div>
+					<span>Export and Import</span>
+				</div>
+				<div>
+					<label for="Import">Import JSON board state here: </label>
+					<input type="file" id="Import" name="Import">
+				</div>
+				<div>
+					<button type="button" id="Export" title="Generates an export of a board state and attatches it to the Download Board State button.">Export</button>
 					<a href="" download type="application/json" id="BSDownload">Download Board State <i>(nothing here yet!)</i></a>
 				</div>
 			</div>
