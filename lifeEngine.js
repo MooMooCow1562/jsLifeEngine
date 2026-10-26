@@ -83,6 +83,8 @@ let neighborsTypes
 let kernelGrid
 let kernelCenter
 let kernelDimensions
+//brush rules
+let shouldFill
 
 /**
 	hides loaders after ruleset is established, shows simulation controls.
@@ -432,6 +434,7 @@ async function importBoard(){
 
 //event listener attatchments.
 //could maybe extract some of these into their own functions?
+document.getElementById("Bucket").addEventListener("change", (e)=>{shouldFill = e.target.checked})
 document.getElementById("Random").addEventListener("click", ()=>{randomizeBoard(); drawBoard()})
 document.getElementById("Start").addEventListener("click", ()=>{clearInterval(loop); times = -1; loopStep()})
 document.getElementById("Stop").addEventListener("click", ()=>{clearInterval(loop); drawBoard()})
@@ -476,6 +479,9 @@ function drawHighlight(){
 
 function toggleCell(){
 	setCell(mouseX, mouseY, (getCell(mouseX, mouseY) + 1)%cellNames.length)
+	if(shouldFill){
+		console.log("Should fill is checked!")
+	}
 	drawBoard()
 }
 
