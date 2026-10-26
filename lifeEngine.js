@@ -478,11 +478,45 @@ function drawHighlight(){
 }
 
 function toggleCell(){
-	setCell(mouseX, mouseY, (getCell(mouseX, mouseY) + 1)%cellNames.length)
+	//if I should fill a contiguous area
 	if(shouldFill){
-		console.log("Should fill is checked!")
+		//fill it
+		toggleContiguousArea(mouseX, mouseY, getCell(mouseX, mouseY))
+	}else{
+		//just change the one cell.
+		setCell(mouseX, mouseY, (getCell(mouseX, mouseY) + 1)%cellNames.length)
 	}
 	drawBoard()
+}
+
+/**
+	recursive algorithm to fill an area with a type of cell
+	uses the von Neumann neighborhood for it's fill algorithm
+	params:
+		x = cell x position
+		y = cell y position
+		oldVal = the cell type value to change
+*/
+function toggleContiguousArea(x, y, oldVal){
+	//boundary wrap
+	x = wrapCellCoord(x, width)
+	y = wrapCellCoord(y, height)
+
+	//if I am not the old value
+	if(getCell(x,y) !== oldVal){
+		return //do nothing
+	}
+
+	//otherwise
+
+	//change my value
+	setCell(x, y, (oldVal + 1)%cellNames.length)
+
+	//tell my Von Neumann neighbors to check and change themselves
+	toggleContiguousArea(wrapCellCoord(x+1, width), y, oldVal)
+	toggleContiguousArea(wrapCellCoord(x-1, width), y, oldVal)
+	toggleContiguousArea(x, wrapCellCoord(y+1, height), oldVal)
+	toggleContiguousArea(x, wrapCellCoord(y-1, height), oldVal)
 }
 
 //draws a fresh frame after the mouse exits the board.
