@@ -477,6 +477,9 @@ function drawHighlight(){
 	ctx.strokeRect(mouseX*cellSize, mouseY*cellSize, cellSize, cellSize)
 }
 
+/**
+	cell toggling listener
+*/
 function toggleCell(){
 	//if I should fill a contiguous area
 	if(shouldFill){
