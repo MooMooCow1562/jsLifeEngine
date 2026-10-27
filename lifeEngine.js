@@ -83,8 +83,9 @@ let neighborsTypes
 let kernelGrid
 let kernelCenter
 let kernelDimensions
-//brush rules
+//brush rules & values
 let shouldFill
+let brushValue = 0 //default should always be 0.
 
 /**
 	hides loaders after ruleset is established, shows simulation controls.
@@ -446,6 +447,9 @@ document.getElementById("Step").addEventListener("click", ()=>{step(); drawBoard
 document.getElementById("Export").addEventListener("click", createExport)
 document.getElementById("Import").addEventListener("change", importBoard)
 
+//fixes a page reload bug that disables the bucket temporarily.
+shouldFill = document.getElementById("Bucket").checked
+
 const canvas = document.getElementById("Board")
 
 let mouseX
@@ -492,6 +496,8 @@ function toggleCell(){
 	drawBoard()
 }
 
+function setBrushValueDropdown(){
+}
 /**
 	iterative algorithm to fill an area with a type of cell
 	uses the von Neumann neighborhood for it's fill algorithm
