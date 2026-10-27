@@ -490,7 +490,7 @@ function toggleCell(){
 }
 
 /**
-	recursive algorithm to fill an area with a type of cell
+	iterative algorithm to fill an area with a type of cell
 	uses the von Neumann neighborhood for it's fill algorithm
 	params:
 		x = cell x position
@@ -498,25 +498,37 @@ function toggleCell(){
 		oldVal = the cell type value to change
 */
 function toggleContiguousArea(x, y, oldVal){
-	//boundary wrap
-	x = wrapCellCoord(x, width)
-	y = wrapCellCoord(y, height)
+	//create an array to store current cell.
+	let tempArr = [Array(getWrappedCell(x,y),x,y)]
+	//create a variable to store popped members
+	let currVal
+	do{
+		//pop the latest cell into currVal
+		currVal = tempArr.pop()
+		//check if we have a current value
+		if(!currVal){
+			//if not, skip execution
+			break
+		}
+		currVal[1] = wrapCellCoord(currVal[1], width)
+		currVal[2] = wrapCellCoord(currVal[2], height)
+		//change currVal's cell value.
+		setCell(currVal[1], currVal[2], (oldVal + 1)%cellNames.length)
 
-	//if I am not the old value
-	if(getCell(x,y) !== oldVal){
-		return //do nothing
-	}
-
-	//otherwise
-
-	//change my value
-	setCell(x, y, (oldVal + 1)%cellNames.length)
-
-	//tell my Von Neumann neighbors to check and change themselves
-	toggleContiguousArea(wrapCellCoord(x+1, width), y, oldVal)
-	toggleContiguousArea(wrapCellCoord(x-1, width), y, oldVal)
-	toggleContiguousArea(x, wrapCellCoord(y+1, height), oldVal)
-	toggleContiguousArea(x, wrapCellCoord(y-1, height), oldVal)
+		//check our neighbors and add them if they have the oldValue
+		if(getWrappedCell(currVal[1]+1,currVal[2]) === oldVal){
+			tempArr.push(Array(getWrappedCell(currVal[1]+1,currVal[2]), currVal[1]+1, currVal[2]))
+		}
+		if(getWrappedCell(currVal[1]-1,currVal[2]) === oldVal){
+			tempArr.push(Array(getWrappedCell(currVal[1]-1,currVal[2]), currVal[1]-1, currVal[2]))
+		}
+		if(getWrappedCell(currVal[1],currVal[2]+1) === oldVal){
+			tempArr.push(Array(getWrappedCell(currVal[1],currVal[2]+1), currVal[1], currVal[2]+1))
+		}
+		if(getWrappedCell(currVal[1],currVal[2]-1) === oldVal){
+			tempArr.push(Array(getWrappedCell(currVal[1],currVal[2]-1), currVal[1], currVal[2]-1))
+		}
+	}while(currVal);
 }
 
 //draws a fresh frame after the mouse exits the board.
