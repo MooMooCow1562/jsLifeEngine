@@ -166,7 +166,7 @@ function countNeighbors(x, y, value = 0, kern_cent_x, kern_cent_y, kernel, kern_
 	for (let f_x = 0; f_x < kern_width; f_x++){
 		for (let f_y = 0; f_y < kern_width; f_y++){
 			if(getAnyCell(f_y , f_x, kernel, kern_width) == true && getWrappedCell(x - kern_cent_x + f_x, y - kern_cent_y + f_y) == value){
-			m_number+=1
+				m_number+=1
 			}
 		}
 	}
