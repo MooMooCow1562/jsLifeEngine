@@ -656,3 +656,38 @@ document.getElementById("CSort").addEventListener("click", sortColumnSlices)
 document.getElementById("SortRows").addEventListener("click", sortRows)
 document.getElementById("SortCols").addEventListener("click", sortColumns)
 document.getElementById("Reverse").addEventListener("click", ()=>{grid.reverse(); drawBoard()})
+
+document.getElementById("Board").addEventListener("keydown", (e)=>{
+	if(e.key != "Tab"){
+		e.preventDefault()
+		}
+})
+document.getElementById("Board").addEventListener("keyup", (e)=>{
+	console.log(e.key)
+	switch(e.key){
+		case " ":
+			step()
+			break
+		case "Enter":
+			clearInterval(loop)
+			times = -1
+			loopStep()
+			break
+		case "Backspace":
+			clearInterval(loop)
+			break
+		case "PageUp":
+			document.getElementById("BrushValue").value = wrapCellCoord(document.getElementById("BrushValue").value - 1, cellNames.length)
+			brushValue = Number(document.getElementById("BrushValue").value); 
+			document.getElementById("BrushValue").style.backgroundColor = cellColors[brushValue]
+			break
+		case "PageDown":
+			document.getElementById("BrushValue").value = wrapCellCoord(document.getElementById("BrushValue").value + 1, cellNames.length)
+			brushValue = Number(document.getElementById("BrushValue").value); 
+			document.getElementById("BrushValue").style.backgroundColor = cellColors[brushValue]
+			break
+		default:
+		//nothing.
+	}
+	drawBoard()
+})
