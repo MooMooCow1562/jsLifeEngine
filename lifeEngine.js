@@ -527,14 +527,9 @@ function toggleContiguousArea(x, y, oldVal){
 	let tempArr = [Array(getWrappedCell(x,y),x,y)]
 	//create a variable to store popped members
 	let currVal
-	do{
+	while(tempArr.length > 0){
 		//pop the latest cell into currVal
 		currVal = tempArr.pop()
-		//check if we have a current value
-		if(!currVal){
-			//if not, skip execution
-			break
-		}
 		currVal[1] = wrapCellCoord(currVal[1], width)
 		currVal[2] = wrapCellCoord(currVal[2], height)
 		//change currVal's cell value.
@@ -552,7 +547,7 @@ function toggleContiguousArea(x, y, oldVal){
 		if(getWrappedCell(currVal[1],currVal[2]-1) === oldVal){
 			tempArr.push(Array(getWrappedCell(currVal[1],currVal[2]-1), currVal[1], currVal[2]-1))
 		}
-	}while(currVal);
+	}
 }
 
 //draws a fresh frame after the mouse exits the board.
