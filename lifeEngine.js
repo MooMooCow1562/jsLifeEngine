@@ -263,7 +263,9 @@ function load(input){
 	height = ruleset["boardDimensions"][1]
 	cellSize = ruleset["cellSize"]
 	alert(ruleset["automataName"] + " has been loaded.")
+	//hide the loaders
 	hideLoaders()
+	setBrushValueDropdown()
 	//Prepare the board!
 	prepBoard()
 }
@@ -436,6 +438,7 @@ async function importBoard(){
 //event listener attatchments.
 //could maybe extract some of these into their own functions?
 document.getElementById("Bucket").addEventListener("change", (e)=>{shouldFill = e.target.checked})
+document.getElementById("BrushValue").addEventListener("change", (e)=>{brushValue = Number(e.target.value); document.getElementById("BrushValue").style.backgroundColor = cellColors[e.target.value]})
 document.getElementById("Random").addEventListener("click", ()=>{randomizeBoard(); drawBoard()})
 document.getElementById("Start").addEventListener("click", ()=>{clearInterval(loop); times = -1; loopStep()})
 document.getElementById("Stop").addEventListener("click", ()=>{clearInterval(loop); drawBoard()})
@@ -474,7 +477,7 @@ function drawHighlight(){
 		return
 	}
 	let ctx = canvas.getContext("2d")
-	ctx.strokeStyle = cellColors[(getCell(mouseX,mouseY)+1) % cellColors.length]
+	ctx.strokeStyle = cellColors[brushValue]
 	ctx.lineWidth = Math.ceil(cellSize / 4);
 	ctx.strokeRect(0, mouseY*cellSize, canvas.width, cellSize)
 	ctx.strokeRect(mouseX*cellSize, 0, cellSize, canvas.height)
@@ -491,12 +494,22 @@ function toggleCell(){
 		toggleContiguousArea(mouseX, mouseY, getCell(mouseX, mouseY))
 	}else{
 		//just change the one cell.
-		setCell(mouseX, mouseY, (getCell(mouseX, mouseY) + 1)%cellNames.length)
+		setCell(mouseX, mouseY, brushValue)
 	}
 	drawBoard()
 }
 
+/**
+	update the dropdown options.
+*/
 function setBrushValueDropdown(){
+    selection = ""
+	for (let i = 0; i < cellNames.length; i++){
+		selection += "<option value=\"" + i + "\">"+ cellNames[i] + "</option>"
+	}
+	selector = document.getElementById("BrushValue")
+	selector.innerHTML = selection
+	selector.style.backgroundColor = cellColors[0]
 }
 /**
 	iterative algorithm to fill an area with a type of cell
@@ -507,6 +520,9 @@ function setBrushValueDropdown(){
 		oldVal = the cell type value to change
 */
 function toggleContiguousArea(x, y, oldVal){
+	//do nothing if the brush value and old value are the same.
+	if(brushValue === oldVal)
+		return
 	//create an array to store current cell.
 	let tempArr = [Array(getWrappedCell(x,y),x,y)]
 	//create a variable to store popped members
@@ -522,8 +538,7 @@ function toggleContiguousArea(x, y, oldVal){
 		currVal[1] = wrapCellCoord(currVal[1], width)
 		currVal[2] = wrapCellCoord(currVal[2], height)
 		//change currVal's cell value.
-		setCell(currVal[1], currVal[2], (oldVal + 1)%cellNames.length)
-
+		setCell(currVal[1], currVal[2], brushValue)
 		//check our neighbors and add them if they have the oldValue
 		if(getWrappedCell(currVal[1]+1,currVal[2]) === oldVal){
 			tempArr.push(Array(getWrappedCell(currVal[1]+1,currVal[2]), currVal[1]+1, currVal[2]))
